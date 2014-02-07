@@ -438,10 +438,10 @@ namespace HtmlRenderer.Dom
                 else
                     g.DrawImage(_imageWord.Image, rect, _imageWord.ImageRectangle);
 
-                if (_imageWord.Selected)
-                {
-                    g.FillRectangle(GetSelectionBackBrush(true), _imageWord.Left + offset.X, _imageWord.Top + offset.Y, _imageWord.Width + 2, DomUtils.GetCssLineBoxByWord(_imageWord).LineHeight);
-                }
+                //if (_imageWord.Selected)
+                //{
+                //    g.FillRectangle(GetSelectionBackBrush(true), _imageWord.Left + offset.X, _imageWord.Top + offset.Y, _imageWord.Width + 2, DomUtils.GetCssLineBoxByWord(_imageWord).LineHeight);
+                //}
             }
             else if (_isVideo && !_imageLoadingComplete)
             {

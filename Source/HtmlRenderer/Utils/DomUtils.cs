@@ -402,12 +402,12 @@ namespace HtmlRenderer.Utils
         /// </summary>
         /// <param name="root">the DOM box to get selected text from its sub-tree</param>
         /// <returns>the selected plain text string</returns>
-        public static string GetSelectedPlainText(CssBox root)
-        {
-            var sb = new StringBuilder();
-            var lastWordIndex = GetSelectedPlainText(sb, root);
-            return sb.ToString(0,lastWordIndex).Trim();
-        }
+        //public static string GetSelectedPlainText(CssBox root)
+        //{
+        //    var sb = new StringBuilder();
+        //    var lastWordIndex = GetSelectedPlainText(sb, root);
+        //    return sb.ToString(0,lastWordIndex).Trim();
+        //}
 
         /// <summary>
         /// Generate html from the given dom tree.<br/>
@@ -450,71 +450,71 @@ namespace HtmlRenderer.Utils
         /// <param name="sb">the builder to append the selected text to</param>
         /// <param name="box">the DOM box to get selected text from its sub-tree</param>
         /// <returns>the index of the last word appended</returns>
-        private static int GetSelectedPlainText(StringBuilder sb, CssBox box)
-        {
-            int lastWordIndex = 0;
-            foreach (var boxWord in box.Words)
-            {
-                // append the text of selected word (handle partial selected words)
-                if (boxWord.Selected)
-                {
-                    sb.Append(GetSelectedWord(boxWord, true));
-                    lastWordIndex = sb.Length;
-                }
-            }
+        //private static int GetSelectedPlainText(StringBuilder sb, CssBox box)
+        //{
+        //    int lastWordIndex = 0;
+        //    foreach (var boxWord in box.Words)
+        //    {
+        //        // append the text of selected word (handle partial selected words)
+        //        if (boxWord.Selected)
+        //        {
+        //            sb.Append(GetSelectedWord(boxWord, true));
+        //            lastWordIndex = sb.Length;
+        //        }
+        //    }
 
-            // empty span box
-            if (box.Boxes.Count < 1 && box.Text != null && box.Text.IsWhitespace())
-            {
-                sb.Append(' ');
-            }
+        //    // empty span box
+        //    if (box.Boxes.Count < 1 && box.Text != null && box.Text.IsWhitespace())
+        //    {
+        //        sb.Append(' ');
+        //    }
 
-            // deep traversal
-            if (box.Visibility != CssConstants.Hidden && box.Display != CssConstants.None)
-            {
-                foreach (var childBox in box.Boxes)
-                {
-                    var innerLastWordIdx = GetSelectedPlainText(sb, childBox);
-                    lastWordIndex = Math.Max(lastWordIndex, innerLastWordIdx);
-                }
-            }
+        //    // deep traversal
+        //    if (box.Visibility != CssConstants.Hidden && box.Display != CssConstants.None)
+        //    {
+        //        foreach (var childBox in box.Boxes)
+        //        {
+        //            var innerLastWordIdx = GetSelectedPlainText(sb, childBox);
+        //            lastWordIndex = Math.Max(lastWordIndex, innerLastWordIdx);
+        //        }
+        //    }
 
-            if (sb.Length > 0)
-            {
-                // convert hr to line of dashes
-                if (box.HtmlTag != null && box.HtmlTag.Name == "hr")
-                {
-                    if(sb.Length > 1 && sb[sb.Length-1] != '\n')
-                        sb.AppendLine();
-                    sb.AppendLine(new string('-', 80));
-                }
+        //    if (sb.Length > 0)
+        //    {
+        //        // convert hr to line of dashes
+        //        if (box.HtmlTag != null && box.HtmlTag.Name == "hr")
+        //        {
+        //            if(sb.Length > 1 && sb[sb.Length-1] != '\n')
+        //                sb.AppendLine();
+        //            sb.AppendLine(new string('-', 80));
+        //        }
 
-                // new line for css block
-                if (box.Display == CssConstants.Block || box.Display == CssConstants.ListItem || box.Display == CssConstants.TableRow)
-                {
-                    if (!(box.IsBrElement && sb.Length > 1 && sb[sb.Length - 1] == '\n'))
-                        sb.AppendLine();
-                }
+        //        // new line for css block
+        //        if (box.Display == CssConstants.Block || box.Display == CssConstants.ListItem || box.Display == CssConstants.TableRow)
+        //        {
+        //            if (!(box.IsBrElement && sb.Length > 1 && sb[sb.Length - 1] == '\n'))
+        //                sb.AppendLine();
+        //        }
 
-                // space between table cells
-                if (box.Display == CssConstants.TableCell)
-                {
-                    sb.Append(' ');
-                }
+        //        // space between table cells
+        //        if (box.Display == CssConstants.TableCell)
+        //        {
+        //            sb.Append(' ');
+        //        }
 
-                // paragraphs has additional newline for nice formatting
-                if (box.HtmlTag != null && box.HtmlTag.Name == "p")
-                {
-                    int newlines = 0;
-                    for (int i = sb.Length - 1; i >= 0 && char.IsWhiteSpace(sb[i]); i--)
-                        newlines += sb[i] == '\n' ? 1 : 0;
-                    if(newlines < 2)
-                        sb.AppendLine();
-                }
-            }
+        //        // paragraphs has additional newline for nice formatting
+        //        if (box.HtmlTag != null && box.HtmlTag.Name == "p")
+        //        {
+        //            int newlines = 0;
+        //            for (int i = sb.Length - 1; i >= 0 && char.IsWhiteSpace(sb[i]); i--)
+        //                newlines += sb[i] == '\n' ? 1 : 0;
+        //            if(newlines < 2)
+        //                sb.AppendLine();
+        //        }
+        //    }
 
-            return lastWordIndex;
-        }
+        //    return lastWordIndex;
+        //}
 
         /// <summary>
         /// Collect the html tags that have at least one word down the heirarchy that is selected recursevly.<br/>
@@ -539,20 +539,20 @@ namespace HtmlRenderer.Utils
         private static bool CollectSelectedHtmlTags(CssBox box, Dictionary<HtmlTag, bool> selectedTags, Dictionary<HtmlTag, bool> maybeTags)
         {
             bool isInSelection = false;
-            foreach (var word in box.Words)
-            {
-                if (word.Selected)
-                {
-                    if (box.HtmlTag != null)
-                    {
-                        selectedTags.Add(box.HtmlTag, true);
-                    }
-                    foreach (var maybeTag in maybeTags)
-                        selectedTags[maybeTag.Key] = maybeTag.Value;
-                    maybeTags.Clear();
-                    isInSelection = true;
-                }
-            }
+            //foreach (var word in box.Words)
+            //{
+            //    if (word.Selected)
+            //    {
+            //        if (box.HtmlTag != null)
+            //        {
+            //            selectedTags.Add(box.HtmlTag, true);
+            //        }
+            //        foreach (var maybeTag in maybeTags)
+            //            selectedTags[maybeTag.Key] = maybeTag.Value;
+            //        maybeTags.Clear();
+            //        isInSelection = true;
+            //    }
+            //}
 
             foreach (var childBox in box.Boxes)
             {
@@ -610,14 +610,14 @@ namespace HtmlRenderer.Utils
             if (box.Words.Count > 0)
             {
                 sb.Append(new string(' ', indent * 4));
-                foreach (var word in box.Words)
-                {
-                    if (selectedTags == null || word.Selected)
-                    {
-                        var wordText = GetSelectedWord(word, selectedTags != null);
-                        sb.Append(HtmlUtils.EncodeHtml(wordText));
-                    }
-                }
+                //foreach (var word in box.Words)
+                //{
+                //    if (selectedTags == null || word.Selected)
+                //    {
+                //        var wordText = GetSelectedWord(word, selectedTags != null);
+                //        sb.Append(HtmlUtils.EncodeHtml(wordText));
+                //    }
+                //}
                 sb.AppendLine();
             }
 
@@ -755,26 +755,26 @@ namespace HtmlRenderer.Utils
         /// </summary>
         /// <param name="rect">the word to append</param>
         /// <param name="selectedText">is to get selected text or all the text in the word</param>
-        private static string GetSelectedWord(CssRect rect, bool selectedText)
-        {
-            if (selectedText && rect.SelectedStartIndex > -1 && rect.SelectedEndIndexOffset > -1)
-            {
-                return rect.Text.Substring(rect.SelectedStartIndex, rect.SelectedEndIndexOffset - rect.SelectedStartIndex);
-            }
-            else if (selectedText && rect.SelectedStartIndex > -1)
-            {
-                return rect.Text.Substring(rect.SelectedStartIndex) + (rect.HasSpaceAfter ? " " : "");
-            }
-            else if (selectedText && rect.SelectedEndIndexOffset > -1)
-            {
-                return rect.Text.Substring(0, rect.SelectedEndIndexOffset);
-            }
-            else
-            {
-                var whitespaceBefore = rect.OwnerBox.Words[0] == rect ? IsBoxHasWhitespace(rect.OwnerBox) : rect.HasSpaceBefore;
-                return (whitespaceBefore ? " " : "") + rect.Text + (rect.HasSpaceAfter ? " " : "");
-            }
-        }
+        //private static string GetSelectedWord(CssRect rect, bool selectedText)
+        //{
+        //    if (selectedText && rect.SelectedStartIndex > -1 && rect.SelectedEndIndexOffset > -1)
+        //    {
+        //        return rect.Text.Substring(rect.SelectedStartIndex, rect.SelectedEndIndexOffset - rect.SelectedStartIndex);
+        //    }
+        //    else if (selectedText && rect.SelectedStartIndex > -1)
+        //    {
+        //        return rect.Text.Substring(rect.SelectedStartIndex) + (rect.HasSpaceAfter ? " " : "");
+        //    }
+        //    else if (selectedText && rect.SelectedEndIndexOffset > -1)
+        //    {
+        //        return rect.Text.Substring(0, rect.SelectedEndIndexOffset);
+        //    }
+        //    else
+        //    {
+        //        var whitespaceBefore = rect.OwnerBox.Words[0] == rect ? IsBoxHasWhitespace(rect.OwnerBox) : rect.HasSpaceBefore;
+        //        return (whitespaceBefore ? " " : "") + rect.Text + (rect.HasSpaceAfter ? " " : "");
+        //    }
+        //}
 
         /// <summary>
         /// Generate textual tree representation of the css boxes tree starting from the given root.<br/>

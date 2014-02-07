@@ -42,7 +42,7 @@ namespace HtmlRenderer.Dom
         /// <summary>
         /// If the word is selected this points to the selection handler for more data
         /// </summary>
-        private SelectionHandler _selection;
+        //private SelectionHandler _selection;
 
         #endregion
 
@@ -146,11 +146,11 @@ namespace HtmlRenderer.Dom
         /// <summary>
         /// If the word is selected this points to the selection handler for more data
         /// </summary>
-        public SelectionHandler Selection
-        {
-            get { return _selection; }
-            set { _selection = value; }
-        }
+        //public SelectionHandler Selection
+        //{
+        //    get { return _selection; }
+        //    set { _selection = value; }
+        //}
 
         /// <summary>
         /// was there a whitespace before the word chars (before trim)
@@ -215,42 +215,42 @@ namespace HtmlRenderer.Dom
         /// <summary>
         /// is the word is currently selected
         /// </summary>
-        public bool Selected
-        {
-            get { return _selection != null; }
-        }
+        //public bool Selected
+        //{
+        //    get { return _selection != null; }
+        //}
 
         /// <summary>
         /// the selection start index if the word is partially selected (-1 if not selected or fully selected)
         /// </summary>
-        public int SelectedStartIndex
-        {
-            get { return _selection != null ? _selection.GetSelectingStartIndex(this) : -1; }
-        }
+        //public int SelectedStartIndex
+        //{
+        //    get { return _selection != null ? _selection.GetSelectingStartIndex(this) : -1; }
+        //}
 
         /// <summary>
         /// the selection end index if the word is partially selected (-1 if not selected or fully selected)
         /// </summary>
-        public int SelectedEndIndexOffset
-        {
-            get { return _selection != null ? _selection.GetSelectedEndIndexOffset(this) : -1; }
-        }
+        //public int SelectedEndIndexOffset
+        //{
+        //    get { return _selection != null ? _selection.GetSelectedEndIndexOffset(this) : -1; }
+        //}
 
         /// <summary>
         /// the selection start offset if the word is partially selected (-1 if not selected or fully selected)
         /// </summary>
-        public float SelectedStartOffset
-        {
-            get { return _selection != null ? _selection.GetSelectedStartOffset(this) : -1; }
-        }
+        //public float SelectedStartOffset
+        //{
+        //    get { return _selection != null ? _selection.GetSelectedStartOffset(this) : -1; }
+        //}
 
         /// <summary>
         /// the selection end offset if the word is partially selected (-1 if not selected or fully selected)
         /// </summary>
-        public float SelectedEndOffset
-        {
-            get { return _selection != null ? _selection.GetSelectedEndOffset(this) : -1; }
-        }
+        //public float SelectedEndOffset
+        //{
+        //    get { return _selection != null ? _selection.GetSelectedEndOffset(this) : -1; }
+        //}
 
         /// <summary>
         /// Gets or sets an offset to be considered in measurements

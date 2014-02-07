@@ -215,81 +215,81 @@ namespace HtmlRenderer.Handlers
         /// <param name="parent">the control hosting the html to invalidate</param>
         /// <param name="button">the mouse button that has been released</param>
         /// <returns>is the mouse up should be ignored</returns>
-        public bool HandleMouseUp(Control parent, MouseButtons button)
-        {
-            bool ignore = false;
-            _mouseDownInControl = false;
-            if (_root.HtmlContainer.IsSelectionEnabled)
-            {
-                ignore = _inSelection;
-                if (!_inSelection && (button & MouseButtons.Left) != 0 && _mouseDownOnSelectedWord)
-                {
-                    ClearSelection();
-                    parent.Invalidate();
-                }
+        //public bool HandleMouseUp(Control parent, MouseButtons button)
+        //{
+        //    bool ignore = false;
+        //    _mouseDownInControl = false;
+        //    if (_root.HtmlContainer.IsSelectionEnabled)
+        //    {
+        //        ignore = _inSelection;
+        //        if (!_inSelection && (button & MouseButtons.Left) != 0 && _mouseDownOnSelectedWord)
+        //        {
+        //            ClearSelection();
+        //            parent.Invalidate();
+        //        }
 
-                _mouseDownOnSelectedWord = false;
-                _inSelection = false;
-            }
-            ignore = ignore || (DateTime.Now - _lastMouseDown > TimeSpan.FromSeconds(1));
-            return ignore;
-        }
+        //        _mouseDownOnSelectedWord = false;
+        //        _inSelection = false;
+        //    }
+        //    ignore = ignore || (DateTime.Now - _lastMouseDown > TimeSpan.FromSeconds(1));
+        //    return ignore;
+        //}
         
         /// <summary>
         /// Handle mouse move to handle hover cursor and text selection.
         /// </summary>
         /// <param name="parent">the control hosting the html to set cursor and invalidate</param>
         /// <param name="loc">the location of the mouse on the html</param>
-        public void HandleMouseMove(Control parent, Point loc)
-        {
-            if (_root.HtmlContainer.IsSelectionEnabled && _mouseDownInControl && (Control.MouseButtons & MouseButtons.Left) != 0)
-            {
-                if (_mouseDownOnSelectedWord)
-                {
-                    // make sure not to start drag-drop on click but when it actually moves as it fucks mouse-up
-                    if ((DateTime.Now - _lastMouseDown).TotalMilliseconds > 200)
-                        StartDragDrop(parent);
-                }
-                else
-                {
-                    HandleSelection(parent, loc, !_isDoubleClickSelect);
-                    _inSelection = _selectionStart != null && _selectionEnd != null && (_selectionStart != _selectionEnd || _selectionStartIndex != _selectionEndIndex);
-                }
-            }
-            else
-            {
-                // Handle mouse hover over the html to change the cursor depending if hovering word, link of other.
-                var link = DomUtils.GetLinkBox(_root, loc);
-                if (link != null)
-                {
-                    _cursorChanged = true;
-                    parent.Cursor = Cursors.Hand;
-                }
-                else if (_root.HtmlContainer.IsSelectionEnabled)
-                {
-                    var word = DomUtils.GetCssBoxWord(_root, loc);
-                    _cursorChanged = word != null && !word.IsImage && !( word.Selected && ( word.SelectedStartIndex < 0 || word.Left + word.SelectedStartOffset <= loc.X ) && ( word.SelectedEndOffset < 0 || word.Left + word.SelectedEndOffset >= loc.X ) );
-                    parent.Cursor = _cursorChanged ? Cursors.IBeam : Cursors.Default;
-                }
-                else if(_cursorChanged)
-                {
-                    parent.Cursor = Cursors.Default;                    
-                }
-            }
-        }
+        //public void HandleMouseMove(Control parent, Point loc)
+        //{
+        //    if (_root.HtmlContainer.IsSelectionEnabled && _mouseDownInControl && (Control.MouseButtons & MouseButtons.Left) != 0)
+        //    {
+        //        if (_mouseDownOnSelectedWord)
+        //        {
+        //            // make sure not to start drag-drop on click but when it actually moves as it fucks mouse-up
+        //            if ((DateTime.Now - _lastMouseDown).TotalMilliseconds > 200)
+        //                StartDragDrop(parent);
+        //        }
+        //        else
+        //        {
+        //            HandleSelection(parent, loc, !_isDoubleClickSelect);
+        //            _inSelection = _selectionStart != null && _selectionEnd != null && (_selectionStart != _selectionEnd || _selectionStartIndex != _selectionEndIndex);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // Handle mouse hover over the html to change the cursor depending if hovering word, link of other.
+        //        var link = DomUtils.GetLinkBox(_root, loc);
+        //        if (link != null)
+        //        {
+        //            _cursorChanged = true;
+        //            parent.Cursor = Cursors.Hand;
+        //        }
+        //        else if (_root.HtmlContainer.IsSelectionEnabled)
+        //        {
+        //            var word = DomUtils.GetCssBoxWord(_root, loc);
+        //            _cursorChanged = word != null && !word.IsImage && !( word.Selected && ( word.SelectedStartIndex < 0 || word.Left + word.SelectedStartOffset <= loc.X ) && ( word.SelectedEndOffset < 0 || word.Left + word.SelectedEndOffset >= loc.X ) );
+        //            parent.Cursor = _cursorChanged ? Cursors.IBeam : Cursors.Default;
+        //        }
+        //        else if(_cursorChanged)
+        //        {
+        //            parent.Cursor = Cursors.Default;                    
+        //        }
+        //    }
+        //}
         
         /// <summary>
         /// On mouse leave change the cursor back to default.
         /// </summary>
         /// <param name="parent">the control hosting the html to set cursor and invalidate</param>
-        public void HandleMouseLeave(Control parent)
-        {
-            if(_cursorChanged)
-            {
-                _cursorChanged = false;
-                parent.Cursor = Cursors.Default;
-            }
-        }
+        //public void HandleMouseLeave(Control parent)
+        //{
+        //    if(_cursorChanged)
+        //    {
+        //        _cursorChanged = false;
+        //        parent.Cursor = Cursors.Default;
+        //    }
+        //}
 
         /// <summary>
         /// Copy the currently selected html segment to clipboard.<br/>
@@ -394,69 +394,69 @@ namespace HtmlRenderer.Handlers
         /// <param name="control">the control hosting the html to invalidate</param>
         /// <param name="loc">the mouse location</param>
         /// <param name="allowPartialSelect">true - partial word selection allowed, false - only full words selection</param>
-        private void HandleSelection(Control control, Point loc, bool allowPartialSelect)
-        {
-            // get the line under the mouse or nearest from the top
-            var lineBox = DomUtils.GetCssLineBox(_root, loc);
-            if (lineBox != null)
-            {
-                // get the word under the mouse
-                var word = DomUtils.GetCssBoxWord(lineBox, loc);
+        //private void HandleSelection(Control control, Point loc, bool allowPartialSelect)
+        //{
+        //    // get the line under the mouse or nearest from the top
+        //    var lineBox = DomUtils.GetCssLineBox(_root, loc);
+        //    if (lineBox != null)
+        //    {
+        //        // get the word under the mouse
+        //        var word = DomUtils.GetCssBoxWord(lineBox, loc);
 
-                // if no word found under the mouse use the last or the first word in the line
-                if (word == null && lineBox.Words.Count > 0)
-                {
-                    if (loc.Y > lineBox.LineBottom)
-                    {
-                        // under the line
-                        word = lineBox.Words[lineBox.Words.Count - 1];
-                    }
-                    else if (loc.X < lineBox.Words[0].Left)
-                    {
-                        // before the line
-                        word = lineBox.Words[0];
-                    }
-                    else if (loc.X > lineBox.Words[lineBox.Words.Count - 1].Right)
-                    {
-                        // at the end of the line
-                        word = lineBox.Words[lineBox.Words.Count - 1];
-                    }
-                }
+        //        // if no word found under the mouse use the last or the first word in the line
+        //        if (word == null && lineBox.Words.Count > 0)
+        //        {
+        //            if (loc.Y > lineBox.LineBottom)
+        //            {
+        //                // under the line
+        //                word = lineBox.Words[lineBox.Words.Count - 1];
+        //            }
+        //            else if (loc.X < lineBox.Words[0].Left)
+        //            {
+        //                // before the line
+        //                word = lineBox.Words[0];
+        //            }
+        //            else if (loc.X > lineBox.Words[lineBox.Words.Count - 1].Right)
+        //            {
+        //                // at the end of the line
+        //                word = lineBox.Words[lineBox.Words.Count - 1];
+        //            }
+        //        }
 
-                // if there is matching word
-                if (word != null)
-                {
-                    if (_selectionStart == null)
-                    {
-                        // on start set the selection start word
-                        _selectionStartPoint = loc;
-                        _selectionStart = word;
-                        if (allowPartialSelect)
-                            CalculateWordCharIndexAndOffset(control, word, loc, true);
-                    }
+        //        // if there is matching word
+        //        if (word != null)
+        //        {
+        //            if (_selectionStart == null)
+        //            {
+        //                // on start set the selection start word
+        //                _selectionStartPoint = loc;
+        //                _selectionStart = word;
+        //                if (allowPartialSelect)
+        //                    CalculateWordCharIndexAndOffset(control, word, loc, true);
+        //            }
 
-                    // always set selection end word
-                    _selectionEnd = word;
-                    if (allowPartialSelect)
-                        CalculateWordCharIndexAndOffset(control, word, loc, false);
+        //            // always set selection end word
+        //            _selectionEnd = word;
+        //            if (allowPartialSelect)
+        //                CalculateWordCharIndexAndOffset(control, word, loc, false);
 
-                    ClearSelection(_root);
-                    if (CheckNonEmptySelection(loc, allowPartialSelect))
-                    {
-                        CheckSelectionDirection();
-                        SelectWordsInRange(_root, _backwardSelection ? _selectionEnd : _selectionStart, _backwardSelection ? _selectionStart : _selectionEnd);
-                    }
-                    else
-                    {
-                        _selectionEnd = null;
-                    }
+        //            ClearSelection(_root);
+        //            if (CheckNonEmptySelection(loc, allowPartialSelect))
+        //            {
+        //                CheckSelectionDirection();
+        //                SelectWordsInRange(_root, _backwardSelection ? _selectionEnd : _selectionStart, _backwardSelection ? _selectionStart : _selectionEnd);
+        //            }
+        //            else
+        //            {
+        //                _selectionEnd = null;
+        //            }
 
-                    _cursorChanged = true;
-                    control.Cursor = Cursors.IBeam;
-                    control.Invalidate();
-                }
-            }
-        }
+        //            _cursorChanged = true;
+        //            control.Cursor = Cursors.IBeam;
+        //            control.Invalidate();
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Clear the current selection.
@@ -498,16 +498,16 @@ namespace HtmlRenderer.Handlers
         /// Start drag & drop operation on the currently selected html segment.
         /// </summary>
         /// <param name="control">the control to start the drag & drop on</param>
-        private void StartDragDrop(Control control)
-        {
-            if (_dragDropData == null)
-            {
-                var html = DomUtils.GenerateHtml(_root, HtmlGenerationStyle.Inline, true);
-                var plainText = DomUtils.GetSelectedPlainText(_root);
-                _dragDropData = HtmlClipboardUtils.GetDataObject(html, plainText);
-            }
-            control.DoDragDrop(_dragDropData, DragDropEffects.Copy);
-        }
+        //private void StartDragDrop(Control control)
+        //{
+        //    if (_dragDropData == null)
+        //    {
+        //        var html = DomUtils.GenerateHtml(_root, HtmlGenerationStyle.Inline, true);
+        //        var plainText = DomUtils.GetSelectedPlainText(_root);
+        //        _dragDropData = HtmlClipboardUtils.GetDataObject(html, plainText);
+        //    }
+        //    control.DoDragDrop(_dragDropData, DragDropEffects.Copy);
+        //}
 
         /// <summary>
         /// Select all the words that are under <paramref name="box"/> DOM hierarchy.<br/>

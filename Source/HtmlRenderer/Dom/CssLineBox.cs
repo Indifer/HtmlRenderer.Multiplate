@@ -288,18 +288,18 @@ namespace HtmlRenderer.Dom
         /// </summary>
         /// <param name="word">the word to check</param>
         /// <returns></returns>
-        public bool IsLastSelectedWord(CssRect word)
-        {
-            for(int i = 0; i < _words.Count-1; i++)
-            {
-                if( _words[i] == word )
-                {
-                    return !_words[i + 1].Selected;
-                }
-            }
+        //public bool IsLastSelectedWord(CssRect word)
+        //{
+        //    for(int i = 0; i < _words.Count-1; i++)
+        //    {
+        //        if( _words[i] == word )
+        //        {
+        //            return !_words[i + 1].Selected;
+        //        }
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         /// <summary>
         /// Returns the words of the linebox
