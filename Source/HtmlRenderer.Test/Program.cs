@@ -9,7 +9,6 @@ namespace HtmlRenderer.Test
     {
         static void Main(string[] args)
         {
-
         }
     }
 }

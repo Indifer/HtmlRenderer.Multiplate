@@ -1,0 +1,28 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Html2Image.Test\Activity1.cs">
+    <Files>
+      <File FileName="..\Html2Image.Test\Activity1.cs" Line="34" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Html2Image" expanded="True">
+            <Node name="Jars" expanded="True" />
+          </Node>
+          <Node name="Html2Image.Test" expanded="True">
+            <Node name="References" expanded="True" />
+            <Node name="Activity1.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="D:\Work\project\github\HtmlRenderer.Multiplate\Source\Html2Image.Test\Activity1.cs" line="32" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Html2Image.Test AndroidDeviceId-Debug="304D19A1347383AE" />
+</Properties>
