@@ -115,7 +115,7 @@ namespace HtmlRenderer.Entities
         public const string Double = "double";
         public const string Groove = "groove";
         public const string Ridge = "ridge";
-        
+
         /// <summary>
         /// Centimeters
         /// </summary>
@@ -161,10 +161,13 @@ namespace HtmlRenderer.Entities
         /// </summary>
         public const float FontSize = 11f;
 
+#if ANDROID
+#else
         /// <summary>
         /// Default font used for the generic 'serif' family
         /// </summary>
         public static string FontSerif = FontFamily.GenericSerif.Name;
+#endif
 
     }
 }

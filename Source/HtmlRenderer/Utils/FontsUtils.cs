@@ -93,7 +93,7 @@ namespace HtmlRenderer.Utils
         /// <remarks>
         /// Font metrics from http://msdn.microsoft.com/en-us/library/xwf9s90b(VS.71).aspx
         /// </remarks>
-        public static float GetDescent(Font font, IGraphics graphics)
+        public static float GetDescent(Font font)
         {
             return font.Size * font.FontFamily.GetCellDescent(font.Style) / font.FontFamily.GetEmHeight(font.Style);
         }

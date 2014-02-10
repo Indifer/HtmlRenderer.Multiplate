@@ -26,7 +26,11 @@ namespace HtmlRenderer.Entities
     /// <param name="path">the path to the image to load (file path or URL)</param>
     /// <param name="image">the image to use</param>
     /// <param name="imageRectangle">optional: limit to specific rectangle in the loaded image</param>
+#if ANDROID
+    internal delegate void HtmlImageLoadCallback(string path, Android.Graphics.Bitmap image, Rectangle imageRectangle);
+#else
     internal delegate void HtmlImageLoadCallback(string path, Image image, Rectangle imageRectangle);
+#endif
 
     /// <summary>
     /// Invoked when an image is about to be loaded by file path, URL or inline data in 'img' element or background-image CSS style.<br/>
@@ -124,11 +128,28 @@ namespace HtmlRenderer.Entities
         public void Callback(string path, Rectangle imageRectangle = new Rectangle())
         {
             ArgChecker.AssertArgNotNullOrEmpty(path, "path");
-            
+
             _handled = true;
             _callback(path, null, imageRectangle);
         }
 
+#if ANDROID
+        /// <summary>
+        /// Callback to overwrite the loaded image with given image object.<br/>
+        /// Can be called directly from delegate handler or asynchronously after setting <see cref="Handled"/> to True.<br/>
+        /// If <paramref name="imageRectangle"/> is given (not <see cref="System.Drawing.Rectangle.Empty"/>) then only the specified rectangle will
+        /// be used from the loaded image and not all of it, also the rectangle will be used for size and not the actual image size.<br/> 
+        /// </summary>
+        /// <param name="image">the image to load</param>
+        /// <param name="imageRectangle">optional: limit to specific rectangle of the image and not all of it</param>
+        public void Callback(Android.Graphics.Bitmap image, Rectangle imageRectangle = new Rectangle())
+        {
+            ArgChecker.AssertArgNotNull(image, "image");
+
+            _handled = true;
+            _callback(null, image, imageRectangle);
+        }
+#else
         /// <summary>
         /// Callback to overwrite the loaded image with given image object.<br/>
         /// Can be called directly from delegate handler or asynchronously after setting <see cref="Handled"/> to True.<br/>
@@ -140,9 +161,10 @@ namespace HtmlRenderer.Entities
         public void Callback(Image image, Rectangle imageRectangle = new Rectangle())
         {
             ArgChecker.AssertArgNotNull(image, "image");
-            
+
             _handled = true;
             _callback(null, image, imageRectangle);
         }
+#endif
     }
 }

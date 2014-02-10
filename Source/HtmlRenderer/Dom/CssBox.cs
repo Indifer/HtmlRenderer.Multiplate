@@ -1302,7 +1302,7 @@ namespace HtmlRenderer.Dom
             if (TextDecoration == CssConstants.Underline)
             {
                 var h = g.MeasureString(" ", ActualFont).Height;
-                float desc = FontsUtils.GetDescent(ActualFont, g);
+                float desc = FontsUtils.GetDescent(ActualFont);
                 y = (float)Math.Round(rectangle.Top + h - desc + 0.5);
             }
             else if (TextDecoration == CssConstants.LineThrough)

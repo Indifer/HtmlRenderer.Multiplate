@@ -120,8 +120,12 @@
     <Compile Include="Utils\DomUtils.cs" />
     <Compile Include="Utils\HtmlUtils.cs" />
     <Compile Include="Utils\CommonUtils.cs" />
-    <Compile Include="WinGraphics.cs" />
-    <Compile Include="Utils\Win32Utils.cs" />
+    <Compile Include="Utils\Win32Utils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WinGraphics.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -145,10 +149,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\ErrorImage.png" />
-    <Content Include="Images\LoadImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
