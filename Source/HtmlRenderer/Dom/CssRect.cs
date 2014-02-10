@@ -10,6 +10,9 @@
 // - Sun Tsu,
 // "The Art of War"
 
+#if ANDROID
+using Android.Graphics;
+#endif
 using System.Drawing;
 using HtmlRenderer.Handlers;
 using HtmlRenderer.Utils;
@@ -168,6 +171,19 @@ namespace HtmlRenderer.Dom
             get { return false; }
         }
 
+
+#if ANDROID
+        /// <summary>
+        /// Gets the image this words represents (if one exists)
+        /// </summary>
+        public virtual Bitmap Image
+        {
+            get { return null; }
+            // ReSharper disable ValueParameterNotUsed
+            set { }
+            // ReSharper restore ValueParameterNotUsed
+        }
+#else 
         /// <summary>
         /// Gets the image this words represents (if one exists)
         /// </summary>
@@ -178,7 +194,8 @@ namespace HtmlRenderer.Dom
             set {}
 // ReSharper restore ValueParameterNotUsed
         }
-
+#endif
+        
         /// <summary>
         /// Gets if the word represents an image.
         /// </summary>

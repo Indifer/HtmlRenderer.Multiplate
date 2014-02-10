@@ -43,6 +43,64 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\HtmlRenderer\CssData.cs">
+      <Link>CssData.cs</Link>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssBox.cs">
+      <Link>Dom\CssBox.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssBoxFrame.cs">
+      <Link>Dom\CssBoxFrame.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssBoxHr.cs">
+      <Link>Dom\CssBoxHr.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssBoxImage.cs">
+      <Link>Dom\CssBoxImage.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssBoxProperties.cs">
+      <Link>Dom\CssBoxProperties.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssLayoutEngine.cs">
+      <Link>Dom\CssLayoutEngine.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssLayoutEngineTable.cs">
+      <Link>Dom\CssLayoutEngineTable.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssLength.cs">
+      <Link>Dom\CssLength.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssLineBox.cs">
+      <Link>Dom\CssLineBox.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssRect.cs">
+      <Link>Dom\CssRect.cs</Link>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssRectImage.cs">
+      <Link>Dom\CssRectImage.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssRectWord.cs">
+      <Link>Dom\CssRectWord.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\CssSpacingBox.cs">
+      <Link>Dom\CssSpacingBox.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Dom\HtmlTag.cs">
+      <Link>Dom\HtmlTag.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="..\HtmlRenderer\Entities\Border.cs">
       <Link>Entities\Border.cs</Link>
       <SubType>Code</SubType>
@@ -111,9 +169,20 @@
       <Link>Entities\Tupler.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\HtmlRenderer\Parse\CssParser.cs">
+      <Link>Parse\CssParser.cs</Link>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Parse\CssValueParser.cs">
+      <Link>Parse\CssValueParser.cs</Link>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Parse\DomParser.cs">
+      <Link>Parse\DomParser.cs</Link>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Parse\HtmlParser.cs">
+      <Link>Parse\HtmlParser.cs</Link>
+    </Compile>
     <Compile Include="..\HtmlRenderer\Parse\RegexParserUtils.cs">
       <Link>Parse\RegexParserUtils.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\HtmlRenderer\Utils\ArgChecker.cs">
       <Link>Utils\ArgChecker.cs</Link>
@@ -123,12 +192,34 @@
       <Link>Utils\CommonUtils.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\HtmlRenderer\Utils\CssUtils.cs">
+      <Link>Utils\CssUtils.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Utils\DomUtils.cs">
+      <Link>Utils\DomUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Utils\HtmlUtils.cs">
+      <Link>Utils\HtmlUtils.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\BackgroundImageDrawHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\BordersDrawHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\ImageLoadHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\StylesheetLoadHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\RenderUtils.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Handlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

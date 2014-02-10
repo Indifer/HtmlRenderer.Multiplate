@@ -11,7 +11,6 @@
     <ImageView
         android:src="@android:drawable/ic_menu_gallery"
         android:layout_width="match_parent"
-        android:layout_height="253.2dp"
-        android:id="@+id/imageView1"
-        android:layout_marginBottom="260.3dp" />
+        android:layout_height="355.7dp"
+        android:id="@+id/imageView1" />
 </LinearLayout>

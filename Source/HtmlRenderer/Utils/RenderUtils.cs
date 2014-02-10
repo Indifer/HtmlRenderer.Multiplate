@@ -15,7 +15,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using HtmlRenderer.Dom;
 using HtmlRenderer.Entities;
-using HtmlRenderer.Properties;
 
 namespace HtmlRenderer.Utils
 {
@@ -36,15 +35,15 @@ namespace HtmlRenderer.Utils
         /// </summary>
         private static readonly Dictionary<Color, Pen> _penCache = new Dictionary<Color, Pen>();
 
-        /// <summary>
-        /// image used to draw loading image icon
-        /// </summary>
-        private static Image _loadImage;
+        ///// <summary>
+        ///// image used to draw loading image icon
+        ///// </summary>
+        //private static Image _loadImage;
 
-        /// <summary>
-        /// image used to draw error image icon
-        /// </summary>
-        private static Image _errorImage;
+        ///// <summary>
+        ///// image used to draw error image icon
+        ///// </summary>
+        //private static Image _errorImage;
 
         #endregion
 
@@ -158,29 +157,29 @@ namespace HtmlRenderer.Utils
             }
         }
         
-        /// <summary>
-        /// Draw image loading icon.
-        /// </summary>
-        /// <param name="g">the device to draw into</param>
-        /// <param name="r">the rectangle to draw icon in</param>
-        public static void DrawImageLoadingIcon(IGraphics g, RectangleF r)
-        {
-            g.DrawRectangle(Pens.LightGray, r.Left + 3, r.Top + 3, 13, 14);
-            var image = GetLoadImage();
-            g.DrawImage(image, new RectangleF(r.Left + 4, r.Top + 4, image.Width, image.Height));
-        }
+        ///// <summary>
+        ///// Draw image loading icon.
+        ///// </summary>
+        ///// <param name="g">the device to draw into</param>
+        ///// <param name="r">the rectangle to draw icon in</param>
+        //public static void DrawImageLoadingIcon(IGraphics g, RectangleF r)
+        //{
+        //    g.DrawRectangle(Pens.LightGray, r.Left + 3, r.Top + 3, 13, 14);
+        //    var image = GetLoadImage();
+        //    g.DrawImage(image, new RectangleF(r.Left + 4, r.Top + 4, image.Width, image.Height));
+        //}
 
-        /// <summary>
-        /// Draw image failed to load icon.
-        /// </summary>
-        /// <param name="g">the device to draw into</param>
-        /// <param name="r">the rectangle to draw icon in</param>
-        public static void DrawImageErrorIcon(IGraphics g, RectangleF r)
-        {
-            g.DrawRectangle(Pens.LightGray, r.Left + 2, r.Top + 2, 15, 15);
-            var image = GetErrorImage();
-            g.DrawImage(image, new RectangleF(r.Left + 3, r.Top + 3, image.Width, image.Height));
-        }
+        ///// <summary>
+        ///// Draw image failed to load icon.
+        ///// </summary>
+        ///// <param name="g">the device to draw into</param>
+        ///// <param name="r">the rectangle to draw icon in</param>
+        //public static void DrawImageErrorIcon(IGraphics g, RectangleF r)
+        //{
+        //    g.DrawRectangle(Pens.LightGray, r.Left + 2, r.Top + 2, 15, 15);
+        //    var image = GetErrorImage();
+        //    g.DrawImage(image, new RectangleF(r.Left + 3, r.Top + 3, image.Width, image.Height));
+        //}
 
         /// <summary>
         /// Creates a rounded rectangle using the specified corner radius
@@ -261,27 +260,27 @@ namespace HtmlRenderer.Utils
 
         #region Private methods
 
-        /// <summary>
-        /// Get singleton instance of load image.
-        /// </summary>
-        /// <returns>image instance</returns>
-        private static Image GetLoadImage()
-        {
-            if( _loadImage == null )
-                _loadImage = Resources.LoadImage;
-            return _loadImage;
-        }
+        ///// <summary>
+        ///// Get singleton instance of load image.
+        ///// </summary>
+        ///// <returns>image instance</returns>
+        //private static Image GetLoadImage()
+        //{
+        //    if( _loadImage == null )
+        //        _loadImage = Resources.LoadImage;
+        //    return _loadImage;
+        //}
 
-        /// <summary>
-        /// Get singleton instance of error image.
-        /// </summary>
-        /// <returns>image instance</returns>
-        private static Image GetErrorImage()
-        {
-            if( _errorImage == null )
-                _errorImage = Resources.ErrorImage;
-            return _errorImage;
-        }
+        ///// <summary>
+        ///// Get singleton instance of error image.
+        ///// </summary>
+        ///// <returns>image instance</returns>
+        //private static Image GetErrorImage()
+        //{
+        //    if( _errorImage == null )
+        //        _errorImage = Resources.ErrorImage;
+        //    return _errorImage;
+        //}
 
         #endregion
     }

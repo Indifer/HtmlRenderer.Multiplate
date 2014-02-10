@@ -10,8 +10,14 @@
 // - Sun Tsu,
 // "The Art of War"
 
-using System;
+#if ANDROID
+using Android.Graphics;
+#else
 using System.Drawing;
+#endif
+
+
+using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using HtmlRenderer.Entities;
@@ -106,17 +112,21 @@ namespace HtmlRenderer.Dom
         /// Gets or sets the location of the box
         /// </summary>
         private PointF _location;
-        
+
         /// <summary>
         /// Gets or sets the size of the box
         /// </summary>
-        private SizeF _size;
+        private System.Drawing.SizeF _size;
 
         private float _actualCornerNW = float.NaN;
         private float _actualCornerNE = float.NaN;
         private float _actualCornerSW = float.NaN;
         private float _actualCornerSE = float.NaN;
+#if ANDROID
+        private Color _actualColor;
+#else
         private Color _actualColor = System.Drawing.Color.Empty;
+#endif
         private float _actualBackgroundGradientAngle = float.NaN;
         private float _actualHeight = float.NaN;
         private float _actualWidth = float.NaN;
@@ -133,7 +143,7 @@ namespace HtmlRenderer.Dom
         private float _actualBorderLeftWidth = float.NaN;
         private float _actualBorderBottomWidth = float.NaN;
         private float _actualBorderRightWidth = float.NaN;
-        
+
         /// <summary>
         /// the width of whitespace between words
         /// </summary>
@@ -145,13 +155,23 @@ namespace HtmlRenderer.Dom
         private float _fontAscent = float.NaN;
         private float _fontDescent = float.NaN;
         private float _fontLineSpacing = float.NaN;
+#if ANDROID
+        private Typeface _actualFont;
+        private Color _actualBackgroundGradient;
+        private Color _actualBorderTopColor;
+        private Color _actualBorderLeftColor;
+        private Color _actualBorderBottomColor;
+        private Color _actualBorderRightColor;
+        private Color _actualBackgroundColor;
+#else
+        private Font _actualFont;
         private Color _actualBackgroundGradient = System.Drawing.Color.Empty;
         private Color _actualBorderTopColor = System.Drawing.Color.Empty;
         private Color _actualBorderLeftColor = System.Drawing.Color.Empty;
         private Color _actualBorderBottomColor = System.Drawing.Color.Empty;
         private Color _actualBorderRightColor = System.Drawing.Color.Empty;
         private Color _actualBackgroundColor = System.Drawing.Color.Empty;
-        private Font _actualFont;
+#endif
 
         #endregion
 
@@ -228,7 +248,11 @@ namespace HtmlRenderer.Dom
             set
             {
                 _borderBottomColor = value;
+#if ANDROID
+                _actualBorderBottomColor = Android.Graphics.Color.Transparent;
+#else
                 _actualBorderBottomColor = System.Drawing.Color.Empty;
+#endif
             }
         }
 
@@ -238,7 +262,11 @@ namespace HtmlRenderer.Dom
             set
             {
                 _borderLeftColor = value;
-                _actualBorderLeftColor = System.Drawing.Color.Empty;
+#if ANDROID
+                _actualBorderLeftColor = Android.Graphics.Color.Transparent;
+#else
+                _actualBorderLeftColor = System.Drawing.Color;
+#endif
             }
         }
 
@@ -643,12 +671,21 @@ namespace HtmlRenderer.Dom
         /// <summary>
         /// Gets or sets the size of the box
         /// </summary>
-        public SizeF Size
+        public System.Drawing.SizeF Size
         {
             get { return _size; }
             set { _size = value; }
         }
 
+#if ANDROID
+        /// <summary>
+        /// Gets the bounds of the box
+        /// </summary>
+        public RectF Bounds
+        {
+            get { return new RectF(Location.X, Location.Y, Location.X + Size.Width, Location.Y + Size.Height); }
+        }
+#else
         /// <summary>
         /// Gets the bounds of the box
         /// </summary>
@@ -656,6 +693,7 @@ namespace HtmlRenderer.Dom
         {
             get { return new RectangleF(Location, Size); }
         }
+#endif
 
         /// <summary>
         /// Gets the width available on the box, counting padding and margin.
@@ -671,7 +709,7 @@ namespace HtmlRenderer.Dom
         public float ActualRight
         {
             get { return Location.X + Size.Width; }
-            set { Size = new SizeF(value - Location.X, Size.Height); }
+            set { Size = new System.Drawing.SizeF(value - Location.X, Size.Height); }
         }
 
         /// <summary>
@@ -681,7 +719,7 @@ namespace HtmlRenderer.Dom
         public float ActualBottom
         {
             get { return Location.Y + Size.Height; }
-            set { Size = new SizeF(Size.Width, value - Location.Y); }
+            set { Size = new System.Drawing.SizeF(Size.Width, value - Location.Y); }
         }
 
         /// <summary>
@@ -716,6 +754,15 @@ namespace HtmlRenderer.Dom
             get { return ActualBottom - ActualPaddingBottom - ActualBorderBottomWidth; }
         }
 
+#if ANDROID
+        /// <summary>
+        /// Gets the client rectangle
+        /// </summary>
+        public Android.Graphics.RectF ClientRectangle
+        {
+            get { return new RectF(ClientLeft, ClientTop, ClientRight, ClientBottom); }
+        }
+#else         
         /// <summary>
         /// Gets the client rectangle
         /// </summary>
@@ -723,6 +770,7 @@ namespace HtmlRenderer.Dom
         {
             get { return RectangleF.FromLTRB(ClientLeft, ClientTop, ClientRight, ClientBottom); }
         }
+#endif
 
         /// <summary>
         /// Gets the actual height
@@ -852,7 +900,7 @@ namespace HtmlRenderer.Dom
             {
                 if (float.IsNaN(_actualMarginLeft))
                 {
-                    if (MarginLeft == CssConstants.Auto) 
+                    if (MarginLeft == CssConstants.Auto)
                         MarginLeft = "0";
                     var actualMarginLeft = CssValueParser.ParseLength(MarginLeft, Size.Width, this);
                     if (MarginLeft.EndsWith("%"))
@@ -872,7 +920,7 @@ namespace HtmlRenderer.Dom
             {
                 if (float.IsNaN(_actualMarginBottom))
                 {
-                    if (MarginBottom == CssConstants.Auto) 
+                    if (MarginBottom == CssConstants.Auto)
                         MarginBottom = "0";
                     var actualMarginBottom = CssValueParser.ParseLength(MarginBottom, Size.Width, this);
                     if (MarginLeft.EndsWith("%"))
@@ -892,7 +940,7 @@ namespace HtmlRenderer.Dom
             {
                 if (float.IsNaN(_actualMarginRight))
                 {
-                    if (MarginRight == CssConstants.Auto) 
+                    if (MarginRight == CssConstants.Auto)
                         MarginRight = "0";
                     var actualMarginRight = CssValueParser.ParseLength(MarginRight, Size.Width, this);
                     if (MarginLeft.EndsWith("%"))
@@ -1264,7 +1312,7 @@ namespace HtmlRenderer.Dom
             {
                 if (float.IsNaN(_actualLineHeight))
                 {
-                    _actualLineHeight = .9f*CssValueParser.ParseLength(LineHeight, Size.Height, this);
+                    _actualLineHeight = .9f * CssValueParser.ParseLength(LineHeight, Size.Height, this);
                 }
                 return _actualLineHeight;
             }

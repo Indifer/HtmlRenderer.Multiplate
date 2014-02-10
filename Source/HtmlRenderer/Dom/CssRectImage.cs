@@ -10,6 +10,10 @@
 // - Sun Tsu,
 // "The Art of War"
 
+#if ANDROID
+using Android.Graphics;
+#endif
+
 using System.Drawing;
 
 namespace HtmlRenderer.Dom
@@ -21,10 +25,17 @@ namespace HtmlRenderer.Dom
     {
         #region Fields and Consts
 
+#if ANDROID
+        /// <summary>
+        /// the image object if it is image word (can be null if not loaded)
+        /// </summary>
+        private Bitmap _image;
+#else 
         /// <summary>
         /// the image object if it is image word (can be null if not loaded)
         /// </summary>
         private Image _image;
+#endif
 
         /// <summary>
         /// the image rectange restriction as returned from image load event
@@ -42,6 +53,17 @@ namespace HtmlRenderer.Dom
             :base(owner)
         {}
 
+
+#if ANDROID
+        /// <summary>
+        /// Gets the image this words represents (if one exists)
+        /// </summary>
+        public override Bitmap Image
+        {
+            get { return _image; }
+            set { _image = value; }
+        }
+#else 
         /// <summary>
         /// Gets the image this words represents (if one exists)
         /// </summary>
@@ -50,6 +72,8 @@ namespace HtmlRenderer.Dom
             get { return _image; }
             set { _image = value; }
         }
+#endif
+
 
         /// <summary>
         /// Gets if the word represents an image.
@@ -74,7 +98,12 @@ namespace HtmlRenderer.Dom
         /// <returns></returns>
         public override string ToString()
         {
+
+#if ANDROID
+            return "Bitmap";
+#else 
             return "Image";
+#endif
         }
     }
 }

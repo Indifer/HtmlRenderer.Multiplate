@@ -10,6 +10,9 @@
 // - Sun Tsu,
 // "The Art of War"
 
+#if ANDROID
+using Android.Graphics;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -34,7 +37,7 @@ namespace HtmlRenderer.Dom
 
         #endregion
 
-        
+
         /// <summary>
         /// Creates a new LineBox
         /// </summary>
@@ -46,7 +49,7 @@ namespace HtmlRenderer.Dom
             _ownerBox = ownerBox;
             _ownerBox.LineBoxes.Add(this);
         }
-        
+
         /// <summary>
         /// Gets a list of boxes related with the linebox. 
         /// To know the words of the box inside this linebox, use the <see cref="WordsOf"/> method.
@@ -167,7 +170,7 @@ namespace HtmlRenderer.Dom
                 y -= topspacing;
                 b += bottomspacing;
             }
-            
+
 
             if (!Rectangles.ContainsKey(box))
             {
@@ -198,6 +201,39 @@ namespace HtmlRenderer.Dom
             }
         }
 
+#if ANDROID
+
+        /// <summary>
+        /// Draws the rectangles for debug purposes
+        /// </summary>
+        /// <param name="g"></param>
+        internal void DrawRectangles(Canvas canvas)
+        {
+            foreach (CssBox b in Rectangles.Keys)
+            {
+                if (float.IsInfinity(Rectangles[b].Width))
+                    continue;
+
+
+                Paint paint = new Paint();
+                Android.Graphics.Color color = Android.Graphics.Color.Black;
+                color.A = 50;
+                paint.Color = color;
+                paint.AntiAlias = true;
+                paint.SetStyle(Paint.Style.Fill);
+
+                canvas.DrawRect(Rectangles[b].Left, Rectangles[b].Top, Rectangles[b].Right, Rectangles[b].Bottom, paint);
+                Rectangle r = Rectangle.Round(Rectangles[b]);
+                paint.Color = Android.Graphics.Color.Red;
+                paint.SetStyle(Paint.Style.Stroke);
+                canvas.DrawRect(r.Left, r.Top, r.Right, r.Bottom, paint);
+
+                //g.FillRectangle(new SolidBrush(Color.FromArgb(50, Color.Black)), Rectangle.Round(Rectangles[b]));
+                //g.DrawRectangle(Pens.Red, Rectangle.Round(Rectangles[b]));
+            }
+        }
+#else 
+
         /// <summary>
         /// Draws the rectangles for debug purposes
         /// </summary>
@@ -208,12 +244,29 @@ namespace HtmlRenderer.Dom
             {
                 if (float.IsInfinity(Rectangles[b].Width)) 
                     continue;
+
                 g.FillRectangle(new SolidBrush(Color.FromArgb(50, Color.Black)),
                     Rectangle.Round(Rectangles[b]));
                 g.DrawRectangle(Pens.Red, Rectangle.Round(Rectangles[b]));
             }
         }
+#endif
 
+#if ANDROID
+        /// <summary>
+        /// Gets the baseline Height of the rectangle
+        /// </summary>
+        /// <param name="b"> </param>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public float GetBaseLineHeight(CssBox b, Canvas canvas)
+        {
+            Font f = b.ActualFont;
+            FontFamily ff = f.FontFamily;
+            FontStyle s = f.Style;
+            return f.GetHeight(g) * ff.GetCellAscent(s) / ff.GetLineSpacing(s);
+        }
+#else        
         /// <summary>
         /// Gets the baseline Height of the rectangle
         /// </summary>
@@ -227,6 +280,7 @@ namespace HtmlRenderer.Dom
             FontStyle s = f.Style;
             return f.GetHeight(g) * ff.GetCellAscent(s) / ff.GetLineSpacing(s);
         }
+#endif
 
         /// <summary>
         /// Sets the baseline of the words of the specified box to certain height
@@ -274,14 +328,14 @@ namespace HtmlRenderer.Dom
                 Rectangles[b] = newr;
                 b.OffsetRectangle(this, gap);
             }
-            
+
             foreach (var word in ws)
             {
                 if (!word.IsImage)
                     word.Top = newtop;
             }
         }
-        
+
         /// <summary>
         /// Check if the given word is the last selected word in the line.<br/>
         /// It can either be the last word in the line or the next word has no selection.

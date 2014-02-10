@@ -11,11 +11,10 @@
 // "The Art of War"
 
 using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using HtmlRenderer.Dom;
 using HtmlRenderer.Entities;
 using HtmlRenderer.Utils;
+using Android.Graphics;
 
 namespace HtmlRenderer.Handlers
 {
@@ -42,9 +41,9 @@ namespace HtmlRenderer.Handlers
         /// <param name="rect">the bounding rectangle to draw in</param>
         /// <param name="isFirst">is it the first rectangle of the element</param>
         /// <param name="isLast">is it the last rectangle of the element</param>
-        public static void DrawBoxBorders(IGraphics g, CssBox box, RectangleF rect, bool isFirst, bool isLast)
-        {
-            if( rect.Width > 0 && rect.Height > 0 )
+        public static void DrawBoxBorders(IGraphics g, CssBox box, Android.Graphics.RectF rect, bool isFirst, bool isLast)
+        {            
+            if( rect.Width() > 0 && rect.Height() > 0 )
             {
                 if (!(string.IsNullOrEmpty(box.BorderTopStyle) || box.BorderTopStyle == CssConstants.None || box.BorderTopStyle == CssConstants.Hidden) && box.ActualBorderTopWidth > 0)
                 {
@@ -365,7 +364,7 @@ namespace HtmlRenderer.Handlers
         /// </summary>
         private static Color Darken(Color c)
         {
-            return Color.FromArgb(c.R / 2, c.G / 2, c.B / 2);
+            return new Color(c.R / 2, c.G / 2, c.B / 2);
         }
 
         #endregion
