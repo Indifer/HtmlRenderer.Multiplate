@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E527CCB4-0734-4A21-9E16-6B37EED238F7}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HtmlRenderer.Android</RootNamespace>
+    <AssemblyName>HtmlRenderer.Android</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk />
+    <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ANDROID</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\HtmlRenderer\Entities\Border.cs">
+      <Link>Entities\Border.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\CssBlock.cs">
+      <Link>Entities\CssBlock.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\CssBlockSelectorItem.cs">
+      <Link>Entities\CssBlockSelectorItem.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\CssConstants.cs">
+      <Link>Entities\CssConstants.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\CssDefaults.cs">
+      <Link>Entities\CssDefaults.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\CssUnit.cs">
+      <Link>Entities\CssUnit.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlConstants.cs">
+      <Link>Entities\HtmlConstants.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlGenerationStyle.cs">
+      <Link>Entities\HtmlGenerationStyle.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlImageLoadEventArgs.cs">
+      <Link>Entities\HtmlImageLoadEventArgs.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlLinkClickedEventArgs.cs">
+      <Link>Entities\HtmlLinkClickedEventArgs.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlLinkClickedException.cs">
+      <Link>Entities\HtmlLinkClickedException.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlRefreshEventArgs.cs">
+      <Link>Entities\HtmlRefreshEventArgs.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlRenderErrorEventArgs.cs">
+      <Link>Entities\HtmlRenderErrorEventArgs.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlRenderErrorType.cs">
+      <Link>Entities\HtmlRenderErrorType.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\HtmlScrollEventArgs.cs">
+      <Link>Entities\HtmlScrollEventArgs.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\SubString.cs">
+      <Link>Entities\SubString.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Entities\Tupler.cs">
+      <Link>Entities\Tupler.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Parse\RegexParserUtils.cs">
+      <Link>Parse\RegexParserUtils.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Utils\ArgChecker.cs">
+      <Link>Utils\ArgChecker.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\HtmlRenderer\Utils\CommonUtils.cs">
+      <Link>Utils\CommonUtils.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IGraphics.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
